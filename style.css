@@ -547,3 +547,165 @@ footer a {
 @media (prefers-reduced-motion: reduce) {
   .grid-pulse, .scan-line { animation: none; }
 }
+bash
+
+cat << 'EOF' > /mnt/user-data/outputs/gumroad-addition.css
+/* ── Nav links ── */
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--cyan); }
+
+/* ── Digital Products Section ── */
+.products {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.product-card {
+  background: var(--surface);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--border);
+}
+
+.product-card.featured-product {
+  background: var(--surface-2);
+}
+
+.product-card.featured-product::before {
+  background: var(--cyan);
+}
+
+.product-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 14px;
+}
+
+.product-card h3 {
+  font-family: var(--font-disp);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+
+.product-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.product-includes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.product-includes li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.product-includes li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--cyan);
+  transform: rotate(45deg);
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.product-price {
+  font-family: var(--font-disp);
+  font-size: 28px;
+  color: var(--white);
+  line-height: 1;
+}
+
+.btn-buy {
+  display: inline-block;
+  padding: 10px 22px;
+  background: var(--cyan);
+  color: var(--bg) !important;
+  text-decoration: none !important;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  transition: opacity 0.2s;
+  /* Override Gumroad's default button styles */
+  border: none !important;
+  box-shadow: none !important;
+  font-family: var(--font-body) !important;
+}
+
+.btn-buy:hover { opacity: 0.85; }
+
+.products-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+EOF
+echo "Done"
+Output
+
+Done
