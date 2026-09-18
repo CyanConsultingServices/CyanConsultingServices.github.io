@@ -109,6 +109,13 @@ nav {
   justify-content: space-between;
 }
 
+/* ── Nav Right group (links + CTA) ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
 /* ── Nav Links ── */
 .nav-links {
   display: flex;
@@ -682,6 +689,7 @@ footer a {
   .hero-mark { display: none; }
   .pricing-tier { padding: 36px 28px; }
   .nav-links { display: none; }
+  .nav-right { gap: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
