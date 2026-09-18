@@ -1,689 +1,301 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
-
-/* ── Reset & Base ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg:        #020B18;
-  --surface:   #071525;
-  --surface-2: #0A1F35;
-  --cyan:      #00BCD4;
-  --cyan-soft: #9BD8E2;
-  --cyan-dim:  rgba(0, 188, 212, 0.12);
-  --cyan-glow: rgba(0, 188, 212, 0.25);
-  --white:     #FFFFFF;
-  --text:      #D8F0F5;      /* brighter than before for body text */
-  --muted:     #85B0C0;      /* lifted from #5E8EA0 — much easier to read */
-  --border:    rgba(0, 188, 212, 0.18);
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-disp: 'DM Serif Display', Georgia, serif;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── Tech Grid Background ── */
-.grid-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.grid-bg svg {
-  width: 100%;
-  height: 100%;
-  opacity: 0.14; /* slightly reduced so it doesn't fight text */
-}
-
-.grid-line {
-  stroke: var(--cyan);
-  stroke-width: 0.5;
-  fill: none;
-}
-
-.grid-pulse {
-  fill: var(--cyan);
-  opacity: 0;
-  animation: pulse-node 4s ease-in-out infinite;
-}
-.grid-pulse:nth-child(2) { animation-delay: 1.4s; }
-.grid-pulse:nth-child(3) { animation-delay: 2.8s; }
-
-@keyframes pulse-node {
-  0%, 100% { opacity: 0; r: 2; }
-  50%       { opacity: 1; r: 4; }
-}
-
-.scan-line {
-  stroke: var(--cyan);
-  stroke-width: 1;
-  opacity: 0;
-  animation: scan 8s linear infinite;
-}
-
-@keyframes scan {
-  0%   { transform: translateY(-10%); opacity: 0; }
-  5%   { opacity: 0.4; }
-  95%  { opacity: 0.4; }
-  100% { transform: translateY(110%); opacity: 0; }
-}
-
-/* ── Layout ── */
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 32px;
-}
-
-/* ── Nav ── */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  background: rgba(2, 11, 24, 0.92); /* more opaque so logo/links are always readable */
-  backdrop-filter: blur(14px);
-}
-
-.nav-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ── Nav Links ── */
-.nav-links {
-  display: flex;
-  gap: 28px;
-}
-
-.nav-links a {
-  color: #A8CDD8; /* was var(--muted) which was too dark */
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--cyan); }
-
-/* ── Logo ── */
-.logo-mark {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-}
-
-.logo-mark svg { flex-shrink: 0; }
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.15;
-}
-
-.logo-text .top {
-  font-family: var(--font-body);
-  font-weight: 400; /* bumped from 300 — thicker = more readable */
-  font-size: 17px;
-  letter-spacing: 0.18em;
-  color: var(--cyan);
-}
-
-.logo-text .bottom {
-  font-family: var(--font-body);
-  font-weight: 400; /* bumped from 300 */
-  font-size: 17px;
-  letter-spacing: 0.18em;
-  color: #B8E4EE; /* brighter than --cyan-soft */
-}
-
-.nav-cta {
-  display: inline-block;
-  padding: 9px 22px;
-  border: 1px solid var(--cyan);
-  color: var(--cyan);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  border-radius: 3px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.nav-cta:hover {
-  background: var(--cyan);
-  color: var(--bg);
-}
-
-/* ── Hero ── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 140px 0 100px;
-}
-
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.hero-eyebrow {
-  font-size: 12px;
-  font-weight: 600; /* was 500 — slightly bolder improves readability on dark bg */
-  letter-spacing: 0.22em;
-  color: var(--cyan);
-  text-transform: uppercase;
-  margin-bottom: 22px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.hero-eyebrow::before {
-  content: '';
-  display: block;
-  width: 28px;
-  height: 1px;
-  background: var(--cyan);
-}
-
-.hero h1 {
-  font-family: var(--font-disp);
-  font-size: clamp(36px, 4.5vw, 56px);
-  font-weight: 400;
-  line-height: 1.15;
-  color: #FFFFFF; /* explicit white — never influenced by cascade */
-  margin-bottom: 28px;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.5); /* subtle shadow lifts it off the grid */
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--cyan-soft);
-}
-
-.hero-sub {
-  font-size: 17px;
-  color: #9DC8D6; /* brighter than old --muted */
-  max-width: 480px;
-  line-height: 1.75;
-  margin-bottom: 40px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 13px 28px;
-  background: var(--cyan);
-  color: var(--bg);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  border-radius: 3px;
-  transition: opacity 0.2s;
-}
-
-.btn-primary:hover { opacity: 0.85; }
-
-.btn-ghost {
-  display: inline-block;
-  padding: 13px 24px;
-  color: #9DC8D6;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 400;
-  border-bottom: 1px solid var(--border);
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.btn-ghost:hover {
-  color: var(--cyan);
-  border-color: var(--cyan);
-}
-
-/* Diamond mark — large hero version */
-.hero-mark {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ── Value Prop Strip ── */
-.value-strip {
-  padding: 64px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.value-strip-inner {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-}
-
-.value-item {
-  padding: 0 40px;
-  border-right: 1px solid var(--border);
-}
-
-.value-item:first-child { padding-left: 0; }
-.value-item:last-child  { border-right: none; }
-
-.value-item .num {
-  font-family: var(--font-disp);
-  font-size: 42px;
-  color: var(--cyan);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.value-item p {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-/* ── Section headings ── */
-.section-heading {
-  margin-bottom: 64px;
-}
-
-.section-heading h2 {
-  font-family: var(--font-disp);
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 400;
-  color: #FFFFFF; /* explicit white */
-  margin-bottom: 14px;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
-}
-
-.section-heading p {
-  font-size: 16px;
-  color: var(--muted);
-  max-width: 540px;
-}
-
-/* ── Pricing ── */
-.pricing {
-  padding: 100px 0;
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-
-.pricing-tier {
-  background: var(--surface);
-  padding: 52px 48px;
-  position: relative;
-  overflow: hidden;
-}
-
-.pricing-tier::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--cyan);
-  opacity: 0.4;
-}
-
-.pricing-tier.featured::before { opacity: 1; }
-.pricing-tier.featured { background: var(--surface-2); }
-
-.tier-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: #85B0C0; /* was too dark before */
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.tier-price {
-  font-family: var(--font-disp);
-  font-size: 38px;
-  color: #FFFFFF;
-  margin-bottom: 6px;
-  line-height: 1;
-}
-
-.tier-price span {
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--muted);
-  margin-left: 4px;
-}
-
-.tier-desc {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 36px;
-  line-height: 1.6;
-  padding-bottom: 32px;
-  border-bottom: 1px solid var(--border);
-}
-
-.tier-services {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.tier-services li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 14.5px;
-  color: var(--text);
-  line-height: 1.5;
-}
-
-.tier-services li::before {
-  content: '';
-  flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  background: var(--cyan);
-  transform: rotate(45deg);
-  margin-top: 7px;
-}
-
-.featured .tier-services li::before {
-  box-shadow: 0 0 6px var(--cyan-glow);
-}
-
-/* ── Digital Products ── */
-.products {
-  padding: 100px 0;
-  border-top: 1px solid var(--border);
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  margin-bottom: 24px;
-}
-
-.product-card {
-  background: var(--surface);
-  padding: 40px 36px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--border);
-}
-
-.product-card.featured-product { background: var(--surface-2); }
-.product-card.featured-product::before { background: var(--cyan); }
-
-.product-tag {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--cyan);
-  margin-bottom: 14px;
-}
-
-.product-card h3 {
-  font-family: var(--font-disp);
-  font-size: 22px;
-  font-weight: 400;
-  color: #FFFFFF;
-  margin-bottom: 14px;
-  line-height: 1.25;
-}
-
-.product-desc {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 24px;
-  flex-grow: 1;
-}
-
-.product-includes {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 32px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid var(--border);
-}
-
-.product-includes li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13.5px;
-  color: var(--text);
-}
-
-.product-includes li::before {
-  content: '';
-  flex-shrink: 0;
-  width: 5px;
-  height: 5px;
-  background: var(--cyan);
-  transform: rotate(45deg);
-}
-
-.product-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.product-price {
-  font-family: var(--font-disp);
-  font-size: 28px;
-  color: #FFFFFF;
-  line-height: 1;
-}
-
-.btn-buy {
-  display: inline-block;
-  padding: 10px 22px;
-  background: var(--cyan);
-  color: var(--bg) !important;
-  text-decoration: none !important;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  border-radius: 3px;
-  transition: opacity 0.2s;
-  border: none !important;
-  box-shadow: none !important;
-  font-family: var(--font-body) !important;
-}
-
-.btn-buy:hover { opacity: 0.85; }
-
-.products-note {
-  text-align: center;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* ── Differentiator ── */
-.differentiator {
-  padding: 100px 0;
-  border-top: 1px solid var(--border);
-}
-
-.diff-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.diff-content h2 {
-  font-family: var(--font-disp);
-  font-size: clamp(26px, 2.8vw, 36px);
-  color: #FFFFFF;
-  line-height: 1.25;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
-}
-
-.diff-content p {
-  font-size: 16px;
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.diff-pillars {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.pillar {
-  padding: 22px 24px;
-  background: var(--surface);
-  border-left: 2px solid var(--cyan);
-}
-
-.pillar strong {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #FFFFFF;
-  margin-bottom: 5px;
-}
-
-.pillar p {
-  font-size: 13.5px;
-  color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: 0;
-}
-
-/* ── CTA ── */
-.cta-section {
-  padding: 100px 0;
-  border-top: 1px solid var(--border);
-  text-align: center;
-}
-
-.cta-section h2 {
-  font-family: var(--font-disp);
-  font-size: clamp(28px, 3.5vw, 46px);
-  color: #FFFFFF;
-  margin-bottom: 16px;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
-}
-
-.cta-section p {
-  font-size: 17px;
-  color: var(--muted);
-  margin-bottom: 40px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ── Footer ── */
-footer {
-  padding: 40px 0;
-  border-top: 1px solid var(--border);
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-footer p {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-footer a {
-  color: var(--cyan);
-  text-decoration: none;
-  font-size: 13px;
-}
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .hero-inner,
-  .pricing-grid,
-  .diff-grid,
-  .value-strip-inner,
-  .products-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .value-item {
-    padding: 20px 0;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .value-item:last-child { border-bottom: none; }
-  .hero-mark { display: none; }
-  .pricing-tier { padding: 36px 28px; }
-  .nav-links { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .grid-pulse, .scan-line { animation: none; }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyan Consulting — Outsourced Finance & IT Analytics</title>
+  <meta name="description" content="Finance expertise, automation, and data intelligence for growing businesses — without the overhead of a full-time team." />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Gumroad overlay script -->
+  <script src="https://gumroad.com/js/gumroad.js"></script>
+</head>
+<body>
+
+  <!-- Tech grid background -->
+  <div class="grid-bg" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- Vertical grid lines -->
+      <line class="grid-line" x1="120" y1="0" x2="120" y2="900"/>
+      <line class="grid-line" x1="240" y1="0" x2="240" y2="900"/>
+      <line class="grid-line" x1="360" y1="0" x2="360" y2="900"/>
+      <line class="grid-line" x1="480" y1="0" x2="480" y2="900"/>
+      <line class="grid-line" x1="600" y1="0" x2="600" y2="900"/>
+      <line class="grid-line" x1="720" y1="0" x2="720" y2="900"/>
+      <line class="grid-line" x1="840" y1="0" x2="840" y2="900"/>
+      <line class="grid-line" x1="960" y1="0" x2="960" y2="900"/>
+      <line class="grid-line" x1="1080" y1="0" x2="1080" y2="900"/>
+      <line class="grid-line" x1="1200" y1="0" x2="1200" y2="900"/>
+      <line class="grid-line" x1="1320" y1="0" x2="1320" y2="900"/>
+      <!-- Horizontal grid lines -->
+      <line class="grid-line" x1="0" y1="112" x2="1440" y2="112"/>
+      <line class="grid-line" x1="0" y1="225" x2="1440" y2="225"/>
+      <line class="grid-line" x1="0" y1="337" x2="1440" y2="337"/>
+      <line class="grid-line" x1="0" y1="450" x2="1440" y2="450"/>
+      <line class="grid-line" x1="0" y1="562" x2="1440" y2="562"/>
+      <line class="grid-line" x1="0" y1="675" x2="1440" y2="675"/>
+      <line class="grid-line" x1="0" y1="787" x2="1440" y2="787"/>
+      <!-- Pulsing nodes at intersections -->
+      <circle class="grid-pulse" cx="480" cy="225" r="2"/>
+      <circle class="grid-pulse" cx="960" cy="450" r="2"/>
+      <circle class="grid-pulse" cx="720" cy="337" r="2"/>
+      <!-- Scan line -->
+      <line class="scan-line" x1="0" y1="0" x2="1440" y2="0"/>
+    </svg>
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <a class="logo-mark" href="#">
+        <!-- Diamond mark B, compact -->
+        <svg width="36" height="36" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="64,4 124,64 64,124 4,64" fill="none" stroke="#00BCD4" stroke-width="3"/>
+          <polygon points="64,22 106,64 64,106 22,64" fill="none" stroke="#00BCD4" stroke-width="10" stroke-linejoin="round" opacity="0.15"/>
+          <line x1="64" y1="4" x2="64" y2="124" stroke="#00BCD4" stroke-width="1" opacity="0.3"/>
+          <line x1="4" y1="64" x2="124" y2="64" stroke="#00BCD4" stroke-width="1" opacity="0.3"/>
+          <circle cx="64" cy="64" r="7" fill="#00BCD4"/>
+        </svg>
+        <div class="logo-text">
+          <span class="top">CYAN</span>
+          <span class="bottom">CONSULTING</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#pricing">Services</a>
+        <a href="#products">Products</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">Outsourced Finance &amp; IT Analytics</p>
+          <h1>The finance team your business needs, <em>without the overhead</em></h1>
+          <p class="hero-sub">
+            We bring together financial expertise, data engineering, and intelligent automation — so smaller companies can operate with the analytical horsepower of a Fortune 500 FP&amp;A department.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#pricing">See our services</a>
+            <a class="btn-ghost" href="#differentiator">How it works</a>
+          </div>
+        </div>
+
+        <!-- Large diamond mark -->
+        <div class="hero-mark" aria-hidden="true">
+          <svg width="320" height="320" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="64,4 124,64 64,124 4,64" fill="none" stroke="#00BCD4" stroke-width="2.5"/>
+            <polygon points="64,20 108,64 64,108 20,64" fill="none" stroke="#00BCD4" stroke-width="9" stroke-linejoin="round" opacity="0.12"/>
+            <line x1="64" y1="4" x2="64" y2="124" stroke="#00BCD4" stroke-width="0.8" opacity="0.25"/>
+            <line x1="4" y1="64" x2="124" y2="64" stroke="#00BCD4" stroke-width="0.8" opacity="0.25"/>
+            <!-- Outer crosshair ticks -->
+            <line x1="64" y1="4"   x2="64" y2="16"  stroke="#00BCD4" stroke-width="2" opacity="0.6"/>
+            <line x1="64" y1="112" x2="64" y2="124" stroke="#00BCD4" stroke-width="2" opacity="0.6"/>
+            <line x1="4"  y1="64"  x2="16"  y2="64" stroke="#00BCD4" stroke-width="2" opacity="0.6"/>
+            <line x1="112" y1="64" x2="124" y2="64" stroke="#00BCD4" stroke-width="2" opacity="0.6"/>
+            <circle cx="64" cy="64" r="8"  fill="none" stroke="#00BCD4" stroke-width="1.5" opacity="0.4"/>
+            <circle cx="64" cy="64" r="3"  fill="#00BCD4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value strip -->
+  <div class="value-strip">
+    <div class="container">
+      <div class="value-strip-inner">
+        <div class="value-item">
+          <div class="num">$0</div>
+          <p>in overhead costs compared to a full-time FP&amp;A hire at $100k+</p>
+        </div>
+        <div class="value-item">
+          <div class="num">3×</div>
+          <p>faster reporting through automated pipelines and real-time dashboards</p>
+        </div>
+        <div class="value-item">
+          <div class="num">Day 1</div>
+          <p>impact — no onboarding runway, no ramp-up time, no benefits overhead</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Two tiers, built around where you are</h2>
+        <p>Start with what you need. Scale when your business demands more analytical depth.</p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- Tier 1 -->
+        <div class="pricing-tier">
+          <p class="tier-label">Foundation</p>
+          <p class="tier-price">$1,000 – $3,000<span>/ month</span></p>
+          <p class="tier-desc">
+            Core financial visibility and data infrastructure for companies moving beyond spreadsheets. 
+            Ideal if you need clean reporting but aren't ready to build an internal analytics team.
+          </p>
+          <ul class="tier-services">
+            <li>Power BI dashboards</li>
+            <li>Financial reporting packages</li>
+            <li>Budget vs. actuals analysis</li>
+            <li>Forecasting models</li>
+            <li>SQL &amp; data integration</li>
+            <li>Excel automation</li>
+            <li>Management reporting</li>
+            <li>KPI dashboards</li>
+          </ul>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="pricing-tier featured">
+          <p class="tier-label">Strategic</p>
+          <p class="tier-price">$3,000 – $7,500+<span>/ month</span></p>
+          <p class="tier-desc">
+            Full fractional FP&amp;A support with advanced automation, system integration, 
+            and AI-assisted analysis. Designed for companies that need a strategic finance partner, not just reports.
+          </p>
+          <ul class="tier-services">
+            <li>Fractional FP&amp;A leadership</li>
+            <li>Rolling forecasts</li>
+            <li>Scenario planning &amp; stress-testing</li>
+            <li>Automated financial reporting</li>
+            <li>ERP &amp; financial-system integration</li>
+            <li>Data warehouse &amp; SQL infrastructure</li>
+            <li>Executive dashboards</li>
+            <li>AI-assisted reporting and analysis</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital Products -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Ready-to-use finance tools</h2>
+        <p>Download the same models and templates we use with clients — built for immediate use, no consultant required.</p>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-tag">Excel Model</div>
+          <h3>Construction FP&amp;A Model</h3>
+          <p class="product-desc">A fully integrated financial planning workbook — revenue build, COGS, headcount, P&amp;L, cash flow, balance sheet, scenarios, and dashboard. Built for construction companies under $75M.</p>
+          <ul class="product-includes">
+            <li>15 linked tabs</li>
+            <li>530+ live formulas</li>
+            <li>Budget vs. actual tracker</li>
+            <li>3-scenario stress-test</li>
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">$97</span>
+            <!-- Replace YOUR_PRODUCT_ID with the ID from your Gumroad product URL -->
+            <a class="gumroad-button btn-buy" href="https://YOUR_USERNAME.gumroad.com/l/YOUR_PRODUCT_ID" data-gumroad-overlay-checkout="true">Buy now</a>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-tag">Excel Model</div>
+          <h3>FP&amp;A Starter Pack</h3>
+          <p class="product-desc">Three essential templates: a 12-month rolling forecast, a budget vs. actual tracker, and a KPI dashboard — each pre-built with formulas and ready to populate with your numbers.</p>
+          <ul class="product-includes">
+            <li>Rolling 12-month forecast</li>
+            <li>Budget vs. actual with variance flags</li>
+            <li>KPI dashboard template</li>
+            <li>Setup guide included</li>
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">$49</span>
+            <a class="gumroad-button btn-buy" href="https://YOUR_USERNAME.gumroad.com/l/YOUR_PRODUCT_ID_2" data-gumroad-overlay-checkout="true">Buy now</a>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card featured-product">
+          <div class="product-tag">Bundle</div>
+          <h3>Full Finance Toolkit</h3>
+          <p class="product-desc">Every model and template we offer, plus a 30-minute onboarding call to walk through setup and customization for your business. Best value for companies setting up FP&amp;A from scratch.</p>
+          <ul class="product-includes">
+            <li>Construction FP&amp;A Model</li>
+            <li>FP&amp;A Starter Pack</li>
+            <li>30-min setup call</li>
+            <li>Free updates for 12 months</li>
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">$197</span>
+            <a class="gumroad-button btn-buy" href="https://YOUR_USERNAME.gumroad.com/l/YOUR_PRODUCT_ID_3" data-gumroad-overlay-checkout="true">Buy now</a>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="products-note">Secure checkout via Gumroad. Instant delivery to your inbox after purchase.</p>
+    </div>
+  </section>
+
+  <!-- Differentiator -->
+  <section class="differentiator" id="differentiator">
+    <div class="container">
+      <div class="diff-grid">
+        <div class="diff-content">
+          <h2>This isn't IT labor. It's intelligence you can measure.</h2>
+          <p>
+            Most outsourced finance services sell time. We sell outcomes — connected directly to the business decisions that move revenue, control costs, and surface risk before it becomes expensive.
+          </p>
+          <p>
+            What makes that possible is the combination of three things most vendors only offer one of.
+          </p>
+        </div>
+
+        <div class="diff-pillars">
+          <div class="pillar">
+            <strong>Finance expertise</strong>
+            <p>FP&amp;A-grade analysis — variance, drivers, trends — from people who've sat across from CFOs, not just built reports for them.</p>
+          </div>
+          <div class="pillar">
+            <strong>Technology &amp; automation</strong>
+            <p>Power BI, SQL pipelines, ERP connectors, and Excel automation that eliminate the manual work your team shouldn't be doing.</p>
+          </div>
+          <div class="pillar">
+            <strong>AI-assisted insight</strong>
+            <p>Emerging AI tools applied to financial data — anomaly detection, narrative generation, and pattern recognition at a scale no analyst can match manually.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <h2>Let's build your finance infrastructure</h2>
+      <p>Tell us where your reporting breaks down. We'll show you what better looks like.</p>
+      <a class="btn-primary" href="mailto:hello@cyanconsulting.com">Start the conversation</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2025 Cyan Consulting. All rights reserved.</p>
+        <a href="mailto:hello@cyanconsulting.com">hello@cyanconsulting.com</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
