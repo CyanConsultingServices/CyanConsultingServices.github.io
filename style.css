@@ -12,8 +12,8 @@
   --cyan-dim:  rgba(0, 188, 212, 0.12);
   --cyan-glow: rgba(0, 188, 212, 0.25);
   --white:     #FFFFFF;
-  --text:      #C8F0F5;
-  --muted:     #5E8EA0;
+  --text:      #D8F0F5;      /* brighter than before for body text */
+  --muted:     #85B0C0;      /* lifted from #5E8EA0 — much easier to read */
   --border:    rgba(0, 188, 212, 0.18);
   --font-body: 'Inter', system-ui, sans-serif;
   --font-disp: 'DM Serif Display', Georgia, serif;
@@ -42,7 +42,7 @@ body {
 .grid-bg svg {
   width: 100%;
   height: 100%;
-  opacity: 0.18;
+  opacity: 0.14; /* slightly reduced so it doesn't fight text */
 }
 
 .grid-line {
@@ -96,8 +96,8 @@ nav {
   z-index: 100;
   padding: 20px 0;
   border-bottom: 1px solid var(--border);
-  background: rgba(2, 11, 24, 0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(2, 11, 24, 0.92); /* more opaque so logo/links are always readable */
+  backdrop-filter: blur(14px);
 }
 
 .nav-inner {
@@ -109,6 +109,24 @@ nav {
   justify-content: space-between;
 }
 
+/* ── Nav Links ── */
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: #A8CDD8; /* was var(--muted) which was too dark */
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--cyan); }
+
+/* ── Logo ── */
 .logo-mark {
   display: flex;
   align-items: center;
@@ -126,7 +144,7 @@ nav {
 
 .logo-text .top {
   font-family: var(--font-body);
-  font-weight: 300;
+  font-weight: 400; /* bumped from 300 — thicker = more readable */
   font-size: 17px;
   letter-spacing: 0.18em;
   color: var(--cyan);
@@ -134,10 +152,10 @@ nav {
 
 .logo-text .bottom {
   font-family: var(--font-body);
-  font-weight: 300;
+  font-weight: 400; /* bumped from 300 */
   font-size: 17px;
   letter-spacing: 0.18em;
-  color: var(--cyan-soft);
+  color: #B8E4EE; /* brighter than --cyan-soft */
 }
 
 .nav-cta {
@@ -175,7 +193,7 @@ nav {
 
 .hero-eyebrow {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600; /* was 500 — slightly bolder improves readability on dark bg */
   letter-spacing: 0.22em;
   color: var(--cyan);
   text-transform: uppercase;
@@ -198,8 +216,9 @@ nav {
   font-size: clamp(36px, 4.5vw, 56px);
   font-weight: 400;
   line-height: 1.15;
-  color: var(--white);
+  color: #FFFFFF; /* explicit white — never influenced by cascade */
   margin-bottom: 28px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.5); /* subtle shadow lifts it off the grid */
 }
 
 .hero h1 em {
@@ -209,7 +228,7 @@ nav {
 
 .hero-sub {
   font-size: 17px;
-  color: var(--muted);
+  color: #9DC8D6; /* brighter than old --muted */
   max-width: 480px;
   line-height: 1.75;
   margin-bottom: 40px;
@@ -240,7 +259,7 @@ nav {
 .btn-ghost {
   display: inline-block;
   padding: 13px 24px;
-  color: var(--cyan-soft);
+  color: #9DC8D6;
   text-decoration: none;
   font-size: 14px;
   font-weight: 400;
@@ -304,8 +323,9 @@ nav {
   font-family: var(--font-disp);
   font-size: clamp(28px, 3vw, 40px);
   font-weight: 400;
-  color: var(--white);
+  color: #FFFFFF; /* explicit white */
   margin-bottom: 14px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
 }
 
 .section-heading p {
@@ -337,27 +357,20 @@ nav {
 .pricing-tier::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 2px;
   background: var(--cyan);
   opacity: 0.4;
 }
 
-.pricing-tier.featured::before {
-  opacity: 1;
-}
-
-.pricing-tier.featured {
-  background: var(--surface-2);
-}
+.pricing-tier.featured::before { opacity: 1; }
+.pricing-tier.featured { background: var(--surface-2); }
 
 .tier-label {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2em;
-  color: var(--muted);
+  color: #85B0C0; /* was too dark before */
   text-transform: uppercase;
   margin-bottom: 20px;
 }
@@ -365,7 +378,7 @@ nav {
 .tier-price {
   font-family: var(--font-disp);
   font-size: 38px;
-  color: var(--white);
+  color: #FFFFFF;
   margin-bottom: 6px;
   line-height: 1;
 }
@@ -414,160 +427,10 @@ nav {
 }
 
 .featured .tier-services li::before {
-  background: var(--cyan);
   box-shadow: 0 0 6px var(--cyan-glow);
 }
 
-/* ── Differentiator ── */
-.differentiator {
-  padding: 100px 0;
-  border-top: 1px solid var(--border);
-}
-
-.diff-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.diff-content h2 {
-  font-family: var(--font-disp);
-  font-size: clamp(26px, 2.8vw, 36px);
-  color: var(--white);
-  line-height: 1.25;
-  margin-bottom: 20px;
-}
-
-.diff-content p {
-  font-size: 16px;
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.diff-pillars {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.pillar {
-  padding: 22px 24px;
-  background: var(--surface);
-  border-left: 2px solid var(--cyan);
-}
-
-.pillar strong {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 5px;
-}
-
-.pillar p {
-  font-size: 13.5px;
-  color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: 0;
-}
-
-/* ── CTA ── */
-.cta-section {
-  padding: 100px 0;
-  border-top: 1px solid var(--border);
-  text-align: center;
-}
-
-.cta-section h2 {
-  font-family: var(--font-disp);
-  font-size: clamp(28px, 3.5vw, 46px);
-  color: var(--white);
-  margin-bottom: 16px;
-}
-
-.cta-section p {
-  font-size: 17px;
-  color: var(--muted);
-  margin-bottom: 40px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ── Footer ── */
-footer {
-  padding: 40px 0;
-  border-top: 1px solid var(--border);
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-footer p {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-footer a {
-  color: var(--cyan);
-  text-decoration: none;
-  font-size: 13px;
-}
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .hero-inner,
-  .pricing-grid,
-  .diff-grid,
-  .value-strip-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .value-item {
-    padding: 20px 0;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .value-item:last-child { border-bottom: none; }
-
-  .hero-mark { display: none; }
-
-  .pricing-tier { padding: 36px 28px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .grid-pulse, .scan-line { animation: none; }
-}
-bash
-
-cat << 'EOF' > /mnt/user-data/outputs/gumroad-addition.css
-/* ── Nav links ── */
-.nav-links {
-  display: flex;
-  gap: 28px;
-}
-
-.nav-links a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover { color: var(--cyan); }
-
-/* ── Digital Products Section ── */
+/* ── Digital Products ── */
 .products {
   padding: 100px 0;
   border-top: 1px solid var(--border);
@@ -599,13 +462,8 @@ cat << 'EOF' > /mnt/user-data/outputs/gumroad-addition.css
   background: var(--border);
 }
 
-.product-card.featured-product {
-  background: var(--surface-2);
-}
-
-.product-card.featured-product::before {
-  background: var(--cyan);
-}
+.product-card.featured-product { background: var(--surface-2); }
+.product-card.featured-product::before { background: var(--cyan); }
 
 .product-tag {
   font-size: 10px;
@@ -620,7 +478,7 @@ cat << 'EOF' > /mnt/user-data/outputs/gumroad-addition.css
   font-family: var(--font-disp);
   font-size: 22px;
   font-weight: 400;
-  color: var(--white);
+  color: #FFFFFF;
   margin-bottom: 14px;
   line-height: 1.25;
 }
@@ -670,7 +528,7 @@ cat << 'EOF' > /mnt/user-data/outputs/gumroad-addition.css
 .product-price {
   font-family: var(--font-disp);
   font-size: 28px;
-  color: var(--white);
+  color: #FFFFFF;
   line-height: 1;
 }
 
@@ -685,7 +543,6 @@ cat << 'EOF' > /mnt/user-data/outputs/gumroad-addition.css
   letter-spacing: 0.05em;
   border-radius: 3px;
   transition: opacity 0.2s;
-  /* Override Gumroad's default button styles */
   border: none !important;
   box-shadow: none !important;
   font-family: var(--font-body) !important;
@@ -699,13 +556,134 @@ cat << 'EOF' > /mnt/user-data/outputs/gumroad-addition.css
   color: var(--muted);
 }
 
+/* ── Differentiator ── */
+.differentiator {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+}
+
+.diff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.diff-content h2 {
+  font-family: var(--font-disp);
+  font-size: clamp(26px, 2.8vw, 36px);
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+}
+
+.diff-content p {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.diff-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pillar {
+  padding: 22px 24px;
+  background: var(--surface);
+  border-left: 2px solid var(--cyan);
+}
+
+.pillar strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 5px;
+}
+
+.pillar p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ── CTA ── */
+.cta-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-family: var(--font-disp);
+  font-size: clamp(28px, 3.5vw, 46px);
+  color: #FFFFFF;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+}
+
+.cta-section p {
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 40px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+footer p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--cyan);
+  text-decoration: none;
+  font-size: 13px;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .products-grid { grid-template-columns: 1fr; }
+  .hero-inner,
+  .pricing-grid,
+  .diff-grid,
+  .value-strip-inner,
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .value-item {
+    padding: 20px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .value-item:last-child { border-bottom: none; }
+  .hero-mark { display: none; }
+  .pricing-tier { padding: 36px 28px; }
   .nav-links { display: none; }
 }
-EOF
-echo "Done"
-Output
 
-Done
+@media (prefers-reduced-motion: reduce) {
+  .grid-pulse, .scan-line { animation: none; }
+}
