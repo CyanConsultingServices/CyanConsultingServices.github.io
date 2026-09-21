@@ -478,7 +478,100 @@ nav {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--cyan);
+  margin-bottom: 8px;
+}
+
+/* ── Industry Filter ── */
+.industry-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.filter-btn {
+  padding: 9px 20px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.filter-btn.active {
+  background: var(--cyan);
+  border-color: var(--cyan);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.filter-empty {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  padding: 48px 0;
+  width: 100%;
+}
+
+.filter-empty a {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Industry Badges ── */
+.industry-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
   margin-bottom: 14px;
+}
+
+.construction-badge {
+  background: rgba(255, 152, 0, 0.12);
+  color: #FFB74D;
+  border: 1px solid rgba(255, 152, 0, 0.25);
+}
+
+.landscaping-badge {
+  background: rgba(76, 175, 80, 0.12);
+  color: #81C784;
+  border: 1px solid rgba(76, 175, 80, 0.25);
+}
+
+.medical-badge {
+  background: rgba(33, 150, 243, 0.12);
+  color: #64B5F6;
+  border: 1px solid rgba(33, 150, 243, 0.25);
+}
+
+.hospitality-badge {
+  background: rgba(156, 39, 176, 0.12);
+  color: #CE93D8;
+  border: 1px solid rgba(156, 39, 176, 0.25);
+}
+
+/* Product card hide/show transition */
+.product-card {
+  transition: opacity 0.2s;
+}
+
+.product-card[style*="display: none"] {
+  opacity: 0;
 }
 
 .product-card h3 {
