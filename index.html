@@ -192,11 +192,26 @@
         <p>Download the same models and templates we use with clients — built for immediate use, no consultant required.</p>
       </div>
 
-      <div class="products-grid">
+      <!-- Industry Filter -->
+      <div class="industry-filter">
+        <button class="filter-btn active" data-filter="all">All Industries</button>
+        <button class="filter-btn" data-filter="construction">Construction</button>
+        <button class="filter-btn" data-filter="landscaping">Landscaping</button>
+        <button class="filter-btn" data-filter="medical">Medical</button>
+        <button class="filter-btn" data-filter="hospitality">Hospitality</button>
+      </div>
 
-        <!-- Product 1 -->
-        <div class="product-card">
+      <!-- No results message -->
+      <p class="filter-empty" id="filter-empty" style="display:none;">
+        No products yet for this industry — <a href="#contact">reach out</a> and we'll build it.
+      </p>
+
+      <div class="products-grid" id="products-grid">
+
+        <!-- Product 1 — Construction -->
+        <div class="product-card" data-industry="construction">
           <div class="product-tag">Excel Model</div>
+          <div class="industry-badge construction-badge">Construction</div>
           <h3>Construction FP&amp;A Model</h3>
           <p class="product-desc">A fully integrated financial planning workbook — revenue build, COGS, headcount, P&amp;L, cash flow, balance sheet, scenarios, and dashboard. Built for construction companies under $75M.</p>
           <ul class="product-includes">
@@ -207,21 +222,21 @@
           </ul>
           <div class="product-footer">
             <span class="product-price">$97</span>
-            <!-- Replace YOUR_PRODUCT_ID with the ID from your Gumroad product URL -->
             <a class="gumroad-button btn-buy" href="https://cyanconsultinggroup.gumroad.com/l/obrpem" data-gumroad-overlay-checkout="true">Buy now</a>
           </div>
         </div>
 
-        <!-- Product 2 -->
-        <div class="product-card">
+        <!-- Product 2 — Construction -->
+        <div class="product-card" data-industry="construction">
           <div class="product-tag">Excel Model</div>
-          <h3>Construction Industry - 13 Week Cashflow</h3>
+          <div class="industry-badge construction-badge">Construction</div>
+          <h3>Construction Industry — 13 Week Cash Flow</h3>
           <p class="product-desc">Running a construction business means juggling payroll, subs, materials, and slow-paying clients all at once. This template was built specifically for construction SMB owners who need to get serious about cash.</p>
           <ul class="product-includes">
-            <li>Full Visibility Into Every Dollar In & Out</li>
-            <li>Walk Into Your Bank Ready</li>
-            <li>Strengthen Your LOC & Lending Conversations</li>
-            <li>Built for How Construction Actually Works</li>
+            <li>Full visibility into every dollar in &amp; out</li>
+            <li>Walk into your bank ready</li>
+            <li>Strengthen your LOC &amp; lending conversations</li>
+            <li>Built for how construction actually works</li>
           </ul>
           <div class="product-footer">
             <span class="product-price">$49</span>
@@ -229,14 +244,15 @@
           </div>
         </div>
 
-        <!-- Product 3 -->
-        <div class="product-card featured-product">
+        <!-- Product 3 — Landscaping -->
+        <div class="product-card featured-product" data-industry="landscaping">
           <div class="product-tag">Excel Model</div>
-          <h3>Landscaping - Financial Model</h3>
+          <div class="industry-badge landscaping-badge">Landscaping</div>
+          <h3>Landscaping — Financial Model</h3>
           <p class="product-desc">This financial model was built to give you the same financial clarity that Fortune 500 companies pay consultants hundreds of thousands of dollars for — translated specifically for landscaping businesses like yours.</p>
           <ul class="product-includes">
-            <li>Margin Tracker</li>
-            <li>Full P&L</li>
+            <li>Margin tracker</li>
+            <li>Full P&amp;L</li>
             <li>5-year revenue projection</li>
             <li>Three scenarios. One model. Zero guesswork.</li>
           </ul>
@@ -246,11 +262,48 @@
           </div>
         </div>
 
+        <!--
+          ── ADDING NEW PRODUCTS ─────────────────────────────────────────────
+          Copy a product-card block above and set data-industry to one of:
+            construction | landscaping | medical | hospitality
+          Then add a matching industry-badge class (e.g. medical-badge).
+          The filter will pick it up automatically — no JS changes needed.
+          ───────────────────────────────────────────────────────────────────
+        -->
+
       </div>
 
       <p class="products-note">Secure checkout via Gumroad. Instant delivery to your inbox after purchase.</p>
     </div>
   </section>
+
+  <!-- Industry filter script -->
+  <script>
+    (function () {
+      const buttons = document.querySelectorAll('.filter-btn');
+      const cards   = document.querySelectorAll('.product-card[data-industry]');
+      const empty   = document.getElementById('filter-empty');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Update active button
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filter = btn.dataset.filter;
+          let visible  = 0;
+
+          cards.forEach(card => {
+            const match = filter === 'all' || card.dataset.industry === filter;
+            card.style.display = match ? '' : 'none';
+            if (match) visible++;
+          });
+
+          empty.style.display = visible === 0 ? 'block' : 'none';
+        });
+      });
+    })();
+  </script>
 
   <!-- Differentiator -->
   <section class="differentiator" id="differentiator">
