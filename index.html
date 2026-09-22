@@ -194,8 +194,8 @@
 
       <!-- Industry Filter -->
       <div class="industry-filter">
-        <button class="filter-btn active" data-filter="forecasting">Flag Ship</button>
-        <button class="filter-btn" data-filter="all">All Industries</button>
+        <button class="filter-btn active" data-filter="forecasting">⭐ Flag Ship</button>
+        <button class="filter-btn" data-filter="all">All Products</button>
         <button class="filter-btn" data-filter="construction">Construction</button>
         <button class="filter-btn" data-filter="landscaping">Landscaping</button>
         <button class="filter-btn" data-filter="medical">Medical</button>
@@ -209,7 +209,43 @@
 
       <div class="products-grid" id="products-grid">
 
-        <!-- Product 1 — Construction -->
+        <!-- Flag Ship 1 -->
+        <div class="product-card featured-product" data-industry="forecasting">
+          <div class="product-tag">Excel Model</div>
+          <div class="industry-badge forecasting-badge">Flag Ship</div>
+          <h3>13-Month Rolling Forecast Model — Excel + Power Query</h3>
+          <p class="product-desc">Most budget models lock you into a January-to-December view. By October, you're already looking at a shrinking runway with no forward visibility. This model fixes that permanently.</p>
+          <ul class="product-includes">
+            <li>Sales data</li>
+            <li>Budget</li>
+            <li>Rolling forecast</li>
+            <li>Fully integrated &amp; ready for your data</li>
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">$75</span>
+            <a class="gumroad-button btn-buy" href="https://cyanconsultinggroup.gumroad.com/l/vrlild" data-gumroad-overlay-checkout="true">Buy now</a>
+          </div>
+        </div>
+
+        <!-- Flag Ship 2 -->
+        <div class="product-card featured-product" data-industry="forecasting">
+          <div class="product-tag">Excel Model</div>
+          <div class="industry-badge forecasting-badge">Flag Ship</div>
+          <h3>Annual Operating Plan</h3>
+          <p class="product-desc">Stop budgeting in the dark. This model thinks like a CFO — three financial statements genuinely connected.</p>
+          <ul class="product-includes">
+            <li>Machine hours sales driver</li>
+            <li>COGS as a real bill of materials</li>
+            <li>Expenses that scale with the actual calendar</li>
+            <li>Three statements. One model. Zero guesswork.</li>
+          </ul>
+          <div class="product-footer">
+            <span class="product-price">$75</span>
+            <a class="gumroad-button btn-buy" href="https://cyanconsultinggroup.gumroad.com/l/zvlkdd" data-gumroad-overlay-checkout="true">Buy now</a>
+          </div>
+        </div>
+
+        <!-- Construction 1 -->
         <div class="product-card" data-industry="construction">
           <div class="product-tag">Excel Model</div>
           <div class="industry-badge construction-badge">Construction</div>
@@ -227,7 +263,7 @@
           </div>
         </div>
 
-        <!-- Product 2 — Construction -->
+        <!-- Construction 2 -->
         <div class="product-card" data-industry="construction">
           <div class="product-tag">Excel Model</div>
           <div class="industry-badge construction-badge">Construction</div>
@@ -245,8 +281,8 @@
           </div>
         </div>
 
-        <!-- Product 3 — Landscaping -->
-        <div class="product-card featured-product" data-industry="landscaping">
+        <!-- Landscaping -->
+        <div class="product-card" data-industry="landscaping">
           <div class="product-tag">Excel Model</div>
           <div class="industry-badge landscaping-badge">Landscaping</div>
           <h3>Landscaping — Financial Model</h3>
@@ -263,46 +299,13 @@
           </div>
         </div>
 
-                <div class="product-card" data-industry="forecasting">
-          <div class="product-tag">Excel Model</div>
-          <div class="industry-badge forecasting-badge">forecasting</div>
-          <h3>13-Month Rolling Forecast Model — Excel + Power Query</h3>
-          <p class="product-desc">Most budget models lock you into a January-to-December view. By October, you're already looking at a shrinking runway with no forward visibility. This model fixes that permanently.</p>
-          <ul class="product-includes">
-            <li>Sales Data</li>
-            <li>Budget</li>
-            <li>Rolling Forecast</li>
-            <li>Full integrated & ready for your data</li>
-          </ul>
-          <div class="product-footer">
-            <span class="product-price">$75</span>
-            <a class="gumroad-button btn-buy" href="https://cyanconsultinggroup.gumroad.com/l/vrlild" data-gumroad-overlay-checkout="true">Buy now</a>
-          </div>
-        </div>
-
-          <div class="product-card" data-industry="forecasting">
-          <div class="product-tag">Excel Model</div>
-          <div class="industry-badge forecasting-badge">forecasting</div>
-          <h3>Annual Operating Plan</h3>
-          <p class="product-desc">Stop budgeting in the dark. This model thinks like a CFO. 3 Financial Statements connected.</p>
-          <ul class="product-includes">
-            <li>Machine Hours Sales Driver</li>
-            <li>COGS is a real bill of materials</li>
-            <li>Expenses scale with the actual calendar.</li>
-            <li>The three statements are genuinely connected</li>
-          </ul>
-          <div class="product-footer">
-            <span class="product-price">$75</span>
-            <a class="gumroad-button btn-buy" href="https://cyanconsultinggroup.gumroad.com/l/zvlkdd" data-gumroad-overlay-checkout="true">Buy now</a>
-          </div>
-        </div>
         <!--
-          ── ADDING NEW PRODUCTS ─────────────────────────────────────────────
-          Copy a product-card block above and set data-industry to one of:
-            construction | landscaping | medical | hospitality
-          Then add a matching industry-badge class (e.g. medical-badge).
-          The filter will pick it up automatically — no JS changes needed.
-          ───────────────────────────────────────────────────────────────────
+          ── ADDING NEW PRODUCTS ──────────────────────────────────────────
+          Copy any product-card block above. Set data-industry to one of:
+            forecasting | construction | landscaping | medical | hospitality
+          Add the matching badge, e.g. <div class="industry-badge medical-badge">Medical</div>
+          The filter picks it up automatically — no JS changes needed.
+          ────────────────────────────────────────────────────────────────
         -->
 
       </div>
@@ -314,26 +317,30 @@
   <!-- Industry filter script -->
   <script>
     (function () {
-      const buttons = document.querySelectorAll('.filter-btn');
-      const cards   = document.querySelectorAll('.product-card[data-industry]');
-      const empty   = document.getElementById('filter-empty');
+      var buttons = document.querySelectorAll('.filter-btn');
+      var cards   = document.querySelectorAll('.product-card[data-industry]');
+      var empty   = document.getElementById('filter-empty');
 
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          // Update active button
-          buttons.forEach(b => b.classList.remove('active'));
+      function applyFilter(filter) {
+        var visible = 0;
+        cards.forEach(function(card) {
+          var match = filter === 'all' || card.dataset.industry === filter;
+          card.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+        empty.style.display = visible === 0 ? 'block' : 'none';
+      }
+
+      // Apply active filter immediately on page load
+      var activeBtn = document.querySelector('.filter-btn.active');
+      if (activeBtn) applyFilter(activeBtn.dataset.filter);
+
+      // Wire up clicks
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          buttons.forEach(function(b) { b.classList.remove('active'); });
           btn.classList.add('active');
-
-          const filter = btn.dataset.filter;
-          let visible  = 0;
-
-          cards.forEach(card => {
-            const match = filter === 'all' || card.dataset.industry === filter;
-            card.style.display = match ? '' : 'none';
-            if (match) visible++;
-          });
-
-          empty.style.display = visible === 0 ? 'block' : 'none';
+          applyFilter(btn.dataset.filter);
         });
       });
     })();
