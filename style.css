@@ -565,6 +565,12 @@ nav {
   border: 1px solid rgba(156, 39, 176, 0.25);
 }
 
+.forecasting-badge {
+  background: rgba(0, 188, 212, 0.12);
+  color: #00BCD4;
+  border: 1px solid rgba(0, 188, 212, 0.30);
+}
+
 /* Product card hide/show transition */
 .product-card {
   transition: opacity 0.2s;
